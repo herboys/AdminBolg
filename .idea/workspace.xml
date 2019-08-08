@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0cf77982-7162-4241-82b5-11121a488317" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/BolgLogin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/mysql.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/MySql.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -68,7 +67,7 @@
       <workItem from="1564973705011" duration="3262000" />
       <workItem from="1564985085433" duration="11202000" />
       <workItem from="1564997004829" duration="581000" />
-      <workItem from="1565144369599" duration="17616000" />
+      <workItem from="1565144369599" duration="32876000" />
     </task>
     <servers />
   </component>
