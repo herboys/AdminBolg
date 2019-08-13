@@ -1,7 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var connections=require('../config/MySql')
+
+// 引入socket.io
+var http = require('http');
+var io = require('socket.io')(http);
+console.log(io,'123')
+// 引入mysql
 var mysql = require('mysql');
+
+// 上传图片的插件
+const multer  = require('multer');
 
 // 链接数据库
 var connection=mysql.createConnection({
@@ -17,7 +26,8 @@ const sql={
     query:'SELECT * FROM user',
     queryname:'SELECT * FROM user where username=',
     userpassword:'SELECT * FROM user where userpassword=',
-    increase:'INSERT INTO user (username,userpassword) VALUES(?,?)'
+    increase:'INSERT INTO user (username,userpassword) VALUES(?,?)',
+    paging:'SELECT * FROM user limit'
 }
 
 // 跨域设置
@@ -66,17 +76,15 @@ router.get('/BolgRegister',async(req,res,next)=>{
                         // connection.end();
                     })
                 })
-
             }
 
         })
     })
-
 });
 
 // 登录账号
 router.post('/BolgLogin', async (req, res, next) => {
-    let param = req.body;
+    let param =await req.body;
     connection.query(sql.queryname + "'" + param.username + "'", (err, result) => {
         if (result.length === 0) {
             result = {
@@ -105,8 +113,42 @@ router.post('/BolgLogin', async (req, res, next) => {
     })
 })
 
+// 分页
+router.post('/GoodsList',async (req,res,next)=>{
+    console.log(req.body.page)
+    let start = (req.body.page-1)*10;
+    connection.query(sql.paging+start+','+10,(err, result)=>{
+        if(err){
+            console.log(err)
+        }
+        console.log(result)
+        result={
+            code:200,
+            data:result,
+        }
+        res.send(result)
+    })
+})
+
+// 文件储存路径
+var upload = multer({ dest: 'public/avatar'})
+
+// 上传图片
+router.post('/uploadavatar', upload.single('avatar'), async (req, res) => {
+    let file =await  req.file;
+    console.log(file)
+    res.json({message: "ok"});
+    }
+);
+
+//  聊天室
+io.on('connection', function(socket){ // 用户连接时触发
+    console.log('a user connected');
+});
+router.post('/xxxxx',async (req,res,next)=>{
+
+})
 // 打印当前项目地址
 console.log( 'server listening to 3000, http://localhost:3000')
-
 
 module.exports = router
